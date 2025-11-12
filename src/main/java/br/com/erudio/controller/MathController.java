@@ -1,8 +1,8 @@
 package br.com.erudio.controller;
 
+import br.com.erudio.exception.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -57,7 +57,7 @@ public class MathController {
     @RequestMapping("/rootSquare/{number}")
     public Double rootSquare(@PathVariable String number) throws IllegalArgumentException {
         if (!isNumeric(number))  {
-            throw new IllegalArgumentException("This is not a number");
+            throw new UnsupportedMathOperationException("This is not a number");
         }
         return Math.sqrt(Double.parseDouble(number));
     }
@@ -67,7 +67,7 @@ public class MathController {
 
     private Double convertToDouble(String strNumber) throws IllegalArgumentException{
         if (strNumber == null || strNumber.isEmpty()) {
-            throw new IllegalArgumentException("This is not a number");
+            throw new UnsupportedMathOperationException("This is not a number");
         }
         String number = strNumber.replace(",", ".");
         return Double.parseDouble(number);
